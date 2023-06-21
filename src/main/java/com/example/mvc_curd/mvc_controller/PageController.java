@@ -5,26 +5,25 @@ import com.example.mvc_curd.mvcmodel.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 @Controller
+@RequestMapping
 public class PageController {
 
 
     @Autowired
     User_Repository user_repository;
-    @GetMapping(value ="/addpage")
+    @RequestMapping(value ="/addpage")
     public String add_user(){
         return "user_add";
     }
 
     // front page of the application.
-    @GetMapping(value ="/")
+    @RequestMapping(value ="/")
     public String view_data(Model model){
         ArrayList<User> names_return = (ArrayList<User>)  user_repository.findAll();
         for(User x:names_return) {
@@ -34,7 +33,7 @@ public class PageController {
         return "index";
     }
 
-    @GetMapping(value ="/deleteuser/{idx}")
+    @RequestMapping(value ="/deleteuser/{idx}")
     public String delete_user(@PathVariable("idx")long user_id){
         user_repository.deleteById(user_id);
         return "index";
